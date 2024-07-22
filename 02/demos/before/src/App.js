@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div className="App">
-      { names.map(n => Welcome(n)) }
+      { names.map(name => Welcome(name)) }
     </div>
   );
 }
