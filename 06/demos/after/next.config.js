@@ -1,3 +1,0 @@
-const nextConfig = {
-  reactStrictMode: true
-}
