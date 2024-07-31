@@ -1,12 +1,8 @@
-function HomePage() {
-  
-  const ctsStyles = { 
-    display: 'flex',
-    justifyContent: 'space-around'
-   };
+import styles from './HomePage.module.scss'
 
+function HomePage() {
   return (
-    <div style={ctsStyles}>
+    <div className={styles.cta}>
       <span>
         Image 1
       </span>
@@ -20,7 +16,7 @@ function HomePage() {
           <div>
             <div>Album desings</div>
           </div>
-          <button>Shop now</button>
+          <button class="cta">Shop now</button>
       </div>
       <span>
         Image 3
