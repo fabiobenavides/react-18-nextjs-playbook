@@ -1,10 +1,11 @@
 import styles from './HomePage.module.scss'
+import Image from  'next/Image'
 
 function HomePage() {
   return (
     <div className={styles.cta}>
       <span>
-        Image 1
+        <Image width="200" height="200" src="/images/albums/sunset-divide/divinity.png" />
       </span>
       <span>
         Image 2
@@ -16,7 +17,7 @@ function HomePage() {
           <div>
             <div>Album desings</div>
           </div>
-          <button class="cta">Shop now</button>
+          <button className="cta">Shop now</button>
       </div>
       <span>
         Image 3
