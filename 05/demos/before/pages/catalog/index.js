@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-//import ProductDetails from '../../components/product-details'
-//import Cart from '../../components/cart'
+import ProductDetails from '../../components/product-details'
+import Cart from '../../components/cart'
 import styles from './Catalog.module.scss'
 import products from './products.json'
 
@@ -28,14 +28,14 @@ function Catalog() {
           <ul className={styles.products}>
             {products.map((product, index) => (
               <li key={index}>
-                {/* <ProductDetails product={product} addToCart={addToCart} /> */}
+                <ProductDetails product={product} addToCart={addToCart} />
               </li>
             ))}
           </ul>
         </div >
         <div className={styles.rightSidebar}>
           <h2>Cart</h2>
-          {/* <Cart cartItems={cart.products} removeItemFromCart={removeItemFromCart} /> */}
+            <Cart cartItems={cart.products} removeItemFromCart={removeItemFromCart} />
         </div>
       </div>
     </>
