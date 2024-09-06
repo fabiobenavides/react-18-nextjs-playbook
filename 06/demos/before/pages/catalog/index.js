@@ -1,22 +1,42 @@
 import { useState, useEffect } from 'react'
-
 import ProductDetails from '../../components/product-details'
 import Cart from '../../components/cart'
 import styles from './Catalog.module.scss'
+import { MongoClient } from 'mongodb'
 
-function Catalog() {
-  const [cart, setCart] = useState({ products: [] })
-  const [products, setProducts] = useState([])
+//This run in the server
+//To access things like querystring  or route parameters use the context parameter
+export async function getServerSideProps(context) {
 
-  function fetchProducts() {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => setProducts(data));
+  /*
+  context.req
+  context.res
+  context.query //querystring
+  context.params //route parameters
+  */
+
+  async function getProducts() {
+
+    const uri = 'mongodb+srv://gecko:alert-radius-LEFTY1@cluster0.m6rbt.mongodb.net/?retryWrites=true&w=majority'
+    const dbName = 'album-shop-dev'
+    const client = await MongoClient.connect(uri)
+    const collection = client.db(dbName).collection("albums")
+  
+    const albums = await collection.find({}).toArray()
+  
+    client.close()
+  
+    return albums
   }
 
-  //second parameter is to executed only 1 time
-  useEffect(() => fetchProducts(), [])
+  const productsFromDb = await getProducts();
 
+  return { props: {products: productsFromDb}}
+}
+
+function Catalog({products}) {
+  const [cart, setCart] = useState({ products: [] })
+ 
   function addToCart(product) {
     const newCart = { _id: cart._id }
     newCart.products = [...cart.products, { ...product }]
