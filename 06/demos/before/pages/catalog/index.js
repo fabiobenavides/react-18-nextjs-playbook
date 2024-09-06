@@ -1,12 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import ProductDetails from '../../components/product-details'
 import Cart from '../../components/cart'
 import styles from './Catalog.module.scss'
-import products from './products.json'
 
 function Catalog() {
   const [cart, setCart] = useState({ products: [] })
+  const [products, setProducts] = useState([])
+
+  function fetchProducts() {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => setProducts(data));
+  }
+
+  //second parameter is to executed only 1 time
+  useEffect(() => fetchProducts(), [])
 
   function addToCart(product) {
     const newCart = { _id: cart._id }
