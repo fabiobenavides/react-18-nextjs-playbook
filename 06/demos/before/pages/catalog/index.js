@@ -6,14 +6,14 @@ import { MongoClient } from 'mongodb'
 
 //This run in the server
 //To access things like querystring  or route parameters use the context parameter
+/*
 export async function getServerSideProps(context) {
-
   /*
   context.req
   context.res
   context.query //querystring
   context.params //route parameters
-  */
+  * /
 
   async function getProducts() {
 
@@ -33,6 +33,31 @@ export async function getServerSideProps(context) {
 
   return { props: {products: productsFromDb}}
 }
+*/
+
+//This run once at build time
+export async function getStaticProps() {
+
+  async function getProducts() {
+
+    const uri = 'mongodb+srv://gecko:alert-radius-LEFTY1@cluster0.m6rbt.mongodb.net/?retryWrites=true&w=majority'
+    const dbName = 'album-shop-dev'
+    const client = await MongoClient.connect(uri)
+    const collection = client.db(dbName).collection("albums")
+  
+    const albums = await collection.find({}).toArray()
+  
+    client.close()
+  
+    return albums
+  }
+
+  const productsFromDb = await getProducts();
+
+  return { props: {products: productsFromDb}, revalidate: 60} //refresh every 60seconds -- Incremental static generation
+}
+
+
 
 function Catalog({products}) {
   const [cart, setCart] = useState({ products: [] })
