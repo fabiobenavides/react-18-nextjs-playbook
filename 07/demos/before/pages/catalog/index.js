@@ -39,6 +39,10 @@ function Catalog({ products }) {
     setCart(newCart)
   }
 
+
+  { process.env.NEXT_PUBLIC_FEATURE1_ENABLED ? true : false }
+  
+
   return (
     <>
       <div className={styles.container}>
